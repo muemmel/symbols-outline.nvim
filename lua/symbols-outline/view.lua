@@ -39,12 +39,15 @@ function View:setup_view()
   if config.options.show_relative_numbers then
     vim.api.nvim_win_set_option(self.winnr, 'rnu', true)
   end
+
+  vim.api.nvim_exec_autocmds("User", { pattern = "SymbolsOutlineCreated" })
 end
 
 function View:close()
   vim.api.nvim_win_close(self.winnr, true)
   self.winnr = nil
   self.bufnr = nil
+  vim.api.nvim_exec_autocmds("User", { pattern = "SymbolsOutlineClosed" })
 end
 
 function View:is_open()
